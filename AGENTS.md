@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules (PLANKTON)
+
+- In-app pages live under the pathless `_platform` layout (sidebar + top bar); the marketing landing page `/` sits outside it. Why: landing needs its own full-bleed shell.
+- Sidebar items are defined once in `src/lib/navigation.ts`. Why: sidebar, tests and future auth guards share one list.
+- All placeholder content lives in `src/lib/sample-data.ts`, and any UI showing it must carry `<SampleBadge />` or `<PreviewNotice />`. Why: sample scores/AI replies must never look like real results; swapping in real data later touches one module.
+- AI, voice, uploads and accounts are not connected yet: controls for them are either disabled with a "coming soon" tooltip or work locally and say so. Why: no button may pretend to perform a real action.
+- Interface strings go through `useI18n().t()` in `src/lib/i18n.tsx` with English fallback; Korean learning content is never translated away. Why: six interface languages, Korean is the learning language.

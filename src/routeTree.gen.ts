@@ -10,33 +10,153 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PlatformRouteImport } from './routes/_platform'
+import { Route as PlatformDashboardRouteImport } from './routes/_platform.dashboard'
+import { Route as PlatformExpressionsRouteImport } from './routes/_platform.expressions'
+import { Route as PlatformFeedbackRouteImport } from './routes/_platform.feedback'
+import { Route as PlatformGroupRouteImport } from './routes/_platform.group'
+import { Route as PlatformHistoryRouteImport } from './routes/_platform.history'
+import { Route as PlatformPresentationRouteImport } from './routes/_platform.presentation'
+import { Route as PlatformQnaRouteImport } from './routes/_platform.qna'
+import { Route as PlatformSettingsRouteImport } from './routes/_platform.settings'
+import { Route as PlatformSpeakingRouteImport } from './routes/_platform.speaking'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformRoute = PlatformRouteImport.update({
+  id: '/_platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformDashboardRoute = PlatformDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformExpressionsRoute = PlatformExpressionsRouteImport.update({
+  id: '/expressions',
+  path: '/expressions',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformFeedbackRoute = PlatformFeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformGroupRoute = PlatformGroupRouteImport.update({
+  id: '/group',
+  path: '/group',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformHistoryRoute = PlatformHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformPresentationRoute = PlatformPresentationRouteImport.update({
+  id: '/presentation',
+  path: '/presentation',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformQnaRoute = PlatformQnaRouteImport.update({
+  id: '/qna',
+  path: '/qna',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformSettingsRoute = PlatformSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => PlatformRoute,
+} as any)
+const PlatformSpeakingRoute = PlatformSpeakingRouteImport.update({
+  id: '/speaking',
+  path: '/speaking',
+  getParentRoute: () => PlatformRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof PlatformDashboardRoute
+  '/expressions': typeof PlatformExpressionsRoute
+  '/feedback': typeof PlatformFeedbackRoute
+  '/group': typeof PlatformGroupRoute
+  '/history': typeof PlatformHistoryRoute
+  '/presentation': typeof PlatformPresentationRoute
+  '/qna': typeof PlatformQnaRoute
+  '/settings': typeof PlatformSettingsRoute
+  '/speaking': typeof PlatformSpeakingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof PlatformDashboardRoute
+  '/expressions': typeof PlatformExpressionsRoute
+  '/feedback': typeof PlatformFeedbackRoute
+  '/group': typeof PlatformGroupRoute
+  '/history': typeof PlatformHistoryRoute
+  '/presentation': typeof PlatformPresentationRoute
+  '/qna': typeof PlatformQnaRoute
+  '/settings': typeof PlatformSettingsRoute
+  '/speaking': typeof PlatformSpeakingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_platform': typeof PlatformRouteWithChildren
+  '/_platform/dashboard': typeof PlatformDashboardRoute
+  '/_platform/expressions': typeof PlatformExpressionsRoute
+  '/_platform/feedback': typeof PlatformFeedbackRoute
+  '/_platform/group': typeof PlatformGroupRoute
+  '/_platform/history': typeof PlatformHistoryRoute
+  '/_platform/presentation': typeof PlatformPresentationRoute
+  '/_platform/qna': typeof PlatformQnaRoute
+  '/_platform/settings': typeof PlatformSettingsRoute
+  '/_platform/speaking': typeof PlatformSpeakingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/expressions'
+    | '/feedback'
+    | '/group'
+    | '/history'
+    | '/presentation'
+    | '/qna'
+    | '/settings'
+    | '/speaking'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/expressions'
+    | '/feedback'
+    | '/group'
+    | '/history'
+    | '/presentation'
+    | '/qna'
+    | '/settings'
+    | '/speaking'
+  id:
+    | '__root__'
+    | '/'
+    | '/_platform'
+    | '/_platform/dashboard'
+    | '/_platform/expressions'
+    | '/_platform/feedback'
+    | '/_platform/group'
+    | '/_platform/history'
+    | '/_platform/presentation'
+    | '/_platform/qna'
+    | '/_platform/settings'
+    | '/_platform/speaking'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PlatformRoute: typeof PlatformRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +168,110 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_platform': {
+      id: '/_platform'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_platform/dashboard': {
+      id: '/_platform/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof PlatformDashboardRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/expressions': {
+      id: '/_platform/expressions'
+      path: '/expressions'
+      fullPath: '/expressions'
+      preLoaderRoute: typeof PlatformExpressionsRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/feedback': {
+      id: '/_platform/feedback'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof PlatformFeedbackRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/group': {
+      id: '/_platform/group'
+      path: '/group'
+      fullPath: '/group'
+      preLoaderRoute: typeof PlatformGroupRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/history': {
+      id: '/_platform/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof PlatformHistoryRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/presentation': {
+      id: '/_platform/presentation'
+      path: '/presentation'
+      fullPath: '/presentation'
+      preLoaderRoute: typeof PlatformPresentationRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/qna': {
+      id: '/_platform/qna'
+      path: '/qna'
+      fullPath: '/qna'
+      preLoaderRoute: typeof PlatformQnaRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/settings': {
+      id: '/_platform/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof PlatformSettingsRouteImport
+      parentRoute: typeof PlatformRoute
+    }
+    '/_platform/speaking': {
+      id: '/_platform/speaking'
+      path: '/speaking'
+      fullPath: '/speaking'
+      preLoaderRoute: typeof PlatformSpeakingRouteImport
+      parentRoute: typeof PlatformRoute
+    }
   }
 }
 
+interface PlatformRouteChildren {
+  PlatformDashboardRoute: typeof PlatformDashboardRoute
+  PlatformExpressionsRoute: typeof PlatformExpressionsRoute
+  PlatformFeedbackRoute: typeof PlatformFeedbackRoute
+  PlatformGroupRoute: typeof PlatformGroupRoute
+  PlatformHistoryRoute: typeof PlatformHistoryRoute
+  PlatformPresentationRoute: typeof PlatformPresentationRoute
+  PlatformQnaRoute: typeof PlatformQnaRoute
+  PlatformSettingsRoute: typeof PlatformSettingsRoute
+  PlatformSpeakingRoute: typeof PlatformSpeakingRoute
+}
+
+const PlatformRouteChildren: PlatformRouteChildren = {
+  PlatformDashboardRoute: PlatformDashboardRoute,
+  PlatformExpressionsRoute: PlatformExpressionsRoute,
+  PlatformFeedbackRoute: PlatformFeedbackRoute,
+  PlatformGroupRoute: PlatformGroupRoute,
+  PlatformHistoryRoute: PlatformHistoryRoute,
+  PlatformPresentationRoute: PlatformPresentationRoute,
+  PlatformQnaRoute: PlatformQnaRoute,
+  PlatformSettingsRoute: PlatformSettingsRoute,
+  PlatformSpeakingRoute: PlatformSpeakingRoute,
+}
+
+const PlatformRouteWithChildren = PlatformRoute._addFileChildren(
+  PlatformRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PlatformRoute: PlatformRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
