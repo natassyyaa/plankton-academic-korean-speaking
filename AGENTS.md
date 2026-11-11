@@ -34,5 +34,9 @@ use the editor.
 - In-app pages live under the pathless `_platform` layout (sidebar + top bar); the marketing landing page `/` sits outside it. Why: landing needs its own full-bleed shell.
 - Sidebar items are defined once in `src/lib/navigation.ts`. Why: sidebar, tests and future auth guards share one list.
 - All placeholder content lives in `src/lib/sample-data.ts`, and any UI showing it must carry `<SampleBadge />` or `<PreviewNotice />`. Why: sample scores/AI replies must never look like real results; swapping in real data later touches one module.
-- AI, voice, uploads and accounts are not connected yet: controls for them are either disabled with a "coming soon" tooltip or work locally and say so. Why: no button may pretend to perform a real action.
+- Controls whose backend isn't wired into a screen yet stay disabled with a "coming soon" tooltip or work locally and say so. Why: no button may pretend to perform a real action.
+- Backend logic lives in `src/lib/*.functions.ts` (server functions with `requireSupabaseAuth`); AI/secret helpers in `src/lib/ai/*.server.ts`, loaded inside handlers. Why: keys stay on the server and every call re-checks the signed-in user.
+- Credits, licence joins, session start and room joins run in security-definer database functions; students only get SELECT (plus own-line INSERT on session_messages). Why: balances and memberships can't be forged from the browser.
+- AI replies, feedback reports and session completion are written by the server only; when AI fails the call returns an error code and nothing is invented. Why: simulated AI output must never look real.
+- Uploads and recordings go through `/api/uploads/presentation` and `/api/transcribe`, which validate type, size and file bytes, then store in private owner-only buckets. Why: private student files and recordings are never exposed.
 - Interface strings go through `useI18n().t()` in `src/lib/i18n.tsx` with English fallback; Korean learning content is never translated away. Why: six interface languages, Korean is the learning language.

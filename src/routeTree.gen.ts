@@ -20,6 +20,8 @@ import { Route as PlatformPresentationRouteImport } from './routes/_platform.pre
 import { Route as PlatformQnaRouteImport } from './routes/_platform.qna'
 import { Route as PlatformSettingsRouteImport } from './routes/_platform.settings'
 import { Route as PlatformSpeakingRouteImport } from './routes/_platform.speaking'
+import { Route as ApiTranscribeRouteImport } from './routes/api/transcribe'
+import { Route as ApiUploadsPresentationRouteImport } from './routes/api/uploads.presentation'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -75,6 +77,16 @@ const PlatformSpeakingRoute = PlatformSpeakingRouteImport.update({
   path: '/speaking',
   getParentRoute: () => PlatformRoute,
 } as any)
+const ApiTranscribeRoute = ApiTranscribeRouteImport.update({
+  id: '/api/transcribe',
+  path: '/api/transcribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiUploadsPresentationRoute = ApiUploadsPresentationRouteImport.update({
+  id: '/api/uploads/presentation',
+  path: '/api/uploads/presentation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -87,6 +99,8 @@ export interface FileRoutesByFullPath {
   '/qna': typeof PlatformQnaRoute
   '/settings': typeof PlatformSettingsRoute
   '/speaking': typeof PlatformSpeakingRoute
+  '/api/transcribe': typeof ApiTranscribeRoute
+  '/api/uploads/presentation': typeof ApiUploadsPresentationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -99,6 +113,8 @@ export interface FileRoutesByTo {
   '/qna': typeof PlatformQnaRoute
   '/settings': typeof PlatformSettingsRoute
   '/speaking': typeof PlatformSpeakingRoute
+  '/api/transcribe': typeof ApiTranscribeRoute
+  '/api/uploads/presentation': typeof ApiUploadsPresentationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -113,6 +129,8 @@ export interface FileRoutesById {
   '/_platform/qna': typeof PlatformQnaRoute
   '/_platform/settings': typeof PlatformSettingsRoute
   '/_platform/speaking': typeof PlatformSpeakingRoute
+  '/api/transcribe': typeof ApiTranscribeRoute
+  '/api/uploads/presentation': typeof ApiUploadsPresentationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -127,6 +145,8 @@ export interface FileRouteTypes {
     | '/qna'
     | '/settings'
     | '/speaking'
+    | '/api/transcribe'
+    | '/api/uploads/presentation'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -139,6 +159,8 @@ export interface FileRouteTypes {
     | '/qna'
     | '/settings'
     | '/speaking'
+    | '/api/transcribe'
+    | '/api/uploads/presentation'
   id:
     | '__root__'
     | '/'
@@ -152,11 +174,15 @@ export interface FileRouteTypes {
     | '/_platform/qna'
     | '/_platform/settings'
     | '/_platform/speaking'
+    | '/api/transcribe'
+    | '/api/uploads/presentation'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PlatformRoute: typeof PlatformRouteWithChildren
+  ApiTranscribeRoute: typeof ApiTranscribeRoute
+  ApiUploadsPresentationRoute: typeof ApiUploadsPresentationRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -238,6 +264,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformSpeakingRouteImport
       parentRoute: typeof PlatformRoute
     }
+    '/api/transcribe': {
+      id: '/api/transcribe'
+      path: '/api/transcribe'
+      fullPath: '/api/transcribe'
+      preLoaderRoute: typeof ApiTranscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/uploads/presentation': {
+      id: '/api/uploads/presentation'
+      path: '/api/uploads/presentation'
+      fullPath: '/api/uploads/presentation'
+      preLoaderRoute: typeof ApiUploadsPresentationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -272,6 +312,8 @@ const PlatformRouteWithChildren = PlatformRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PlatformRoute: PlatformRouteWithChildren,
+  ApiTranscribeRoute: ApiTranscribeRoute,
+  ApiUploadsPresentationRoute: ApiUploadsPresentationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
